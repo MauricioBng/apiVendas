@@ -1,0 +1,385 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-node-api-crud",
+    "name": "Node API — CRUD + testes",
+    "description": "Coleção para o servidor HTTP em `src/index.js`.\n\n**Variáveis da coleção:** `baseUrl` (padrão `http://localhost:3000`) e `idCliente`, `idCidade`, etc. Ajuste os IDs após criar registros via POST.\n\n**Importar:** Postman → Import → selecione este arquivo.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "idCliente", "value": "1" },
+    { "key": "idCidade", "value": "1" },
+    { "key": "idBairro", "value": "1" },
+    { "key": "idFuncionario", "value": "1" },
+    { "key": "idProduto", "value": "1" },
+    { "key": "idVenda", "value": "1" },
+    { "key": "idVendaItem", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Health e testes",
+      "item": [
+        {
+          "name": "GET / — status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/"
+          }
+        },
+        {
+          "name": "GET /teste — data/hora",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/teste"
+          }
+        },
+        {
+          "name": "GET /testebanco — Postgres",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/testebanco"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cidade",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/cidade?limit=50&offset=0",
+            "description": "Filtros opcionais: idcidade, nomecidade (adicione na URL)."
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomecidade\": \"Curitiba\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/cidade"
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomecidade\": \"Curitiba (atualizado)\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/cidade/{{idCidade}}"
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/cidade/{{idCidade}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bairro",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/bairro?limit=50&offset=0",
+            "description": "Filtros opcionais: idbairro, nomebairro."
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomebairro\": \"Centro\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/bairro"
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomebairro\": \"Batel\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/bairro/{{idBairro}}"
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/bairro/{{idBairro}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Funcionário",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/funcionario?limit=50&offset=0",
+            "description": "Filtros opcionais: idfuncionario, nomefuncionario."
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomefuncionario\": \"Maria Silva\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/funcionario"
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomefuncionario\": \"Maria S. (atualizado)\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/funcionario/{{idFuncionario}}"
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/funcionario/{{idFuncionario}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Produto",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/produto?limit=50&offset=0",
+            "description": "Filtros opcionais: idproduto, descricao."
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"descricao\": \"Notebook\",\n  \"custo\": 2500.0,\n  \"vrvenda\": 3200.0,\n  \"estoque\": 10\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/produto"
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estoque\": 8,\n  \"vrvenda\": 3100.0\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/produto/{{idProduto}}"
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/produto/{{idProduto}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Cliente",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/cliente?limit=50&offset=0",
+            "description": "Filtros opcionais: idcliente, nome, cpf, idbairro, idcidade."
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nome\": \"João da Silva\",\n  \"cpf\": \"12345678901\",\n  \"rg\": \"MG1234567\",\n  \"dtnascimento\": \"1990-05-15\",\n  \"celular\": \"41999998888\",\n  \"endereco\": \"Rua A, 100\",\n  \"idbairro\": 1,\n  \"idcidade\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/cliente"
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"celular\": \"41988887777\",\n  \"endereco\": \"Rua B, 200\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/cliente/{{idCliente}}"
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/cliente/{{idCliente}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Venda",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/venda?limit=50&offset=0",
+            "description": "Filtros opcionais: idvenda, idcliente, idfuncionario, datavenda."
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idcliente\": 1,\n  \"idfuncionario\": 1,\n  \"datavenda\": \"2026-03-30\",\n  \"valorbruto\": 1000.0,\n  \"desconto\": 50.0,\n  \"acrescimo\": 0,\n  \"valorliquido\": 950.0,\n  \"parcelas\": 3\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/venda"
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"desconto\": 100.0,\n  \"valorliquido\": 900.0\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/venda/{{idVenda}}"
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/venda/{{idVenda}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Venda item",
+      "item": [
+        {
+          "name": "Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/vendaitem?limit=50&offset=0",
+            "description": "Filtros opcionais: idvendaitem, idvenda, idproduto."
+          }
+        },
+        {
+          "name": "Incluir",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idvenda\": 1,\n  \"idproduto\": 1,\n  \"quantidade\": 2,\n  \"valorunitario\": 500.0,\n  \"valortotal\": 1000.0\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/vendaitem"
+          }
+        },
+        {
+          "name": "Alterar",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantidade\": 3,\n  \"valortotal\": 1500.0\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": "{{baseUrl}}/vendaitem/{{idVendaItem}}"
+          }
+        },
+        {
+          "name": "Excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/vendaitem/{{idVendaItem}}"
+          }
+        }
+      ]
+    }
+  ]
+}
