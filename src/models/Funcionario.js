@@ -1,3 +1,5 @@
+import { normalizeCrudValueForWrite } from "../utils/crudNormalize.js";
+
 export class Funcionario {
   static allowedFields = ["nomefuncionario"];
 
@@ -70,7 +72,7 @@ export class Funcionario {
     for (const field of Funcionario.allowedFields) {
       if (Object.prototype.hasOwnProperty.call(data, field) && data[field] != null) {
         columns.push(field);
-        values.push(data[field]);
+        values.push(normalizeCrudValueForWrite(data[field]));
       }
     }
     return { columns, values };

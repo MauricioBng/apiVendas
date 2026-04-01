@@ -1,3 +1,5 @@
+import { normalizeCrudValueForWrite } from "../utils/crudNormalize.js";
+
 export class VendaItem {
   static allowedFields = ["idvenda", "idproduto", "quantidade", "valorunitario", "valortotal"];
 
@@ -72,7 +74,7 @@ export class VendaItem {
     for (const field of VendaItem.allowedFields) {
       if (Object.prototype.hasOwnProperty.call(data, field) && data[field] != null) {
         columns.push(field);
-        values.push(data[field]);
+        values.push(normalizeCrudValueForWrite(data[field]));
       }
     }
     return { columns, values };

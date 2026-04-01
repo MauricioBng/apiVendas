@@ -1,3 +1,5 @@
+import { normalizeCrudValueForWrite } from "../utils/crudNormalize.js";
+
 export class Bairro {
   static allowedFields = ["nomebairro"];
 
@@ -68,7 +70,7 @@ export class Bairro {
     for (const field of Bairro.allowedFields) {
       if (Object.prototype.hasOwnProperty.call(data, field) && data[field] != null) {
         columns.push(field);
-        values.push(data[field]);
+        values.push(normalizeCrudValueForWrite(data[field]));
       }
     }
     return { columns, values };

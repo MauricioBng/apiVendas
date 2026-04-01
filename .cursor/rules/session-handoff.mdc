@@ -1,0 +1,11 @@
+---
+description: Continuidade do projeto Node/React — consultar handoff versionado no repositório
+alwaysApply: true
+---
+
+# Handoff de sessão (repositório)
+
+- Antes de assumir contexto “de cabeça” em mudanças amplas no **backend Node** ou no **frontend React** deste repo, verifique se o usuário quer alinhar com o documento **`docs/cursor-session/CONVERSATION-HANDOFF.md`**.
+- Esse arquivo é a **fonte de verdade versionada** para decisões, caminhos de arquivos e escopo (em especial **Movimento de Vendas**). O painel de chat do Cursor pode não refletir o Git entre máquinas; o handoff + `@arquivo` substitui isso na prática.
+- Quando o usuário retomar trabalho em outro PC, recomende abrir/anexar `@docs/cursor-session/CONVERSATION-HANDOFF.md` no chat.
+- Após marcos importantes, ofereça **atualizar** `CONVERSATION-HANDOFF.md` e a data no topo do arquivo.

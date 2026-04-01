@@ -14,7 +14,15 @@ const models = {
   cliente: {
     instance: new Cliente(db),
     idField: "idcliente",
-    listFilters: ["idcliente", "nome", "cpf", "idbairro", "idcidade"],
+    listFilters: [
+      "idcliente",
+      "nome",
+      "cpf",
+      "idbairro",
+      "idcidade",
+      "nomebairro",
+      "nomecidade",
+    ],
   },
   cidade: { instance: new Cidade(db), idField: "idcidade", listFilters: ["idcidade", "nomecidade"] },
   bairro: { instance: new Bairro(db), idField: "idbairro", listFilters: ["idbairro", "nomebairro"] },
@@ -31,7 +39,7 @@ const models = {
   venda: {
     instance: new Venda(db),
     idField: "idvenda",
-    listFilters: ["idvenda", "idcliente", "idfuncionario", "datavenda"],
+    listFilters: ["idvenda", "idcliente", "idfuncionario", "datavenda", "nomecliente", "nomefuncionario"],
   },
   vendaitem: {
     instance: new VendaItem(db),
@@ -42,6 +50,9 @@ const models = {
 
 function sendJson(res, statusCode, body) {
   res.statusCode = statusCode;
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.end(JSON.stringify(body));
 }
@@ -70,6 +81,15 @@ function buildListParams(url, allowedFilters) {
 }
 
 const server = http.createServer(async (req, res) => {
+  if (req.method === "OPTIONS") {
+    res.statusCode = 204;
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.end();
+    return;
+  }
+
   // Normaliza path sem querystring
   const url = new URL(req.url ?? "/", `http://${req.headers.host ?? "localhost"}`);
   const path = url.pathname;

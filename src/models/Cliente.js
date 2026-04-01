@@ -1,3 +1,5 @@
+import { normalizeCrudValueForWrite } from "../utils/crudNormalize.js";
+
 /**
  * CRUD da tabela `cliente`.
  *
@@ -22,7 +24,17 @@ export class Cliente {
     this.db = db;
   }
 
-  async consultar({ idcliente, nome, cpf, idbairro, idcidade, limit = 50, offset = 0 } = {}) {
+  async consultar({
+    idcliente,
+    nome,
+    cpf,
+    idbairro,
+    idcidade,
+    nomebairro,
+    nomecidade,
+    limit = 50,
+    offset = 0,
+  } = {}) {
     const where = [];
     const values = [];
 
@@ -45,6 +57,18 @@ export class Cliente {
     if (idcidade != null) {
       values.push(idcidade);
       where.push(`idcidade = $${values.length}`);
+    }
+    if (nomebairro != null && String(nomebairro).trim() !== "") {
+      values.push(`%${nomebairro}%`);
+      where.push(
+        `EXISTS (SELECT 1 FROM bairro b WHERE b.idbairro = cliente.idbairro AND b.nomebairro ILIKE $${values.length})`,
+      );
+    }
+    if (nomecidade != null && String(nomecidade).trim() !== "") {
+      values.push(`%${nomecidade}%`);
+      where.push(
+        `EXISTS (SELECT 1 FROM cidade c WHERE c.idcidade = cliente.idcidade AND c.nomecidade ILIKE $${values.length})`,
+      );
     }
 
     values.push(limit);
@@ -125,7 +149,7 @@ export class Cliente {
     for (const field of Cliente.allowedFields) {
       if (Object.prototype.hasOwnProperty.call(data, field) && data[field] != null) {
         columns.push(field);
-        values.push(data[field]);
+        values.push(normalizeCrudValueForWrite(data[field]));
       }
     }
 

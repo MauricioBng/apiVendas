@@ -1,3 +1,5 @@
+import { normalizeCrudValueForWrite } from "../utils/crudNormalize.js";
+
 export class Venda {
   static allowedFields = [
     "idcliente",
@@ -14,7 +16,16 @@ export class Venda {
     this.db = db;
   }
 
-  async consultar({ idvenda, idcliente, idfuncionario, datavenda, limit = 50, offset = 0 } = {}) {
+  async consultar({
+    idvenda,
+    idcliente,
+    idfuncionario,
+    datavenda,
+    nomecliente,
+    nomefuncionario,
+    limit = 50,
+    offset = 0,
+  } = {}) {
     const where = [];
     const values = [];
 
@@ -33,6 +44,18 @@ export class Venda {
     if (datavenda != null) {
       values.push(datavenda);
       where.push(`datavenda = $${values.length}`);
+    }
+    if (nomecliente != null && String(nomecliente).trim() !== "") {
+      values.push(`%${nomecliente}%`);
+      where.push(
+        `EXISTS (SELECT 1 FROM cliente c WHERE c.idcliente = venda.idcliente AND c.nome ILIKE $${values.length})`,
+      );
+    }
+    if (nomefuncionario != null && String(nomefuncionario).trim() !== "") {
+      values.push(`%${nomefuncionario}%`);
+      where.push(
+        `EXISTS (SELECT 1 FROM funcionario f WHERE f.idfuncionario = venda.idfuncionario AND f.nomefuncionario ILIKE $${values.length})`,
+      );
     }
 
     values.push(limit);
@@ -85,7 +108,7 @@ export class Venda {
     for (const field of Venda.allowedFields) {
       if (Object.prototype.hasOwnProperty.call(data, field) && data[field] != null) {
         columns.push(field);
-        values.push(data[field]);
+        values.push(normalizeCrudValueForWrite(data[field]));
       }
     }
     return { columns, values };
